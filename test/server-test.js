@@ -9,7 +9,6 @@ const testAppPort = 9876;
 describe('Server', () => {
   before((done) => {
     this.port = testAppPort;
-
     this.server = app.listen(this.port, (err, result) => {
       if (err) {
         return done(err);

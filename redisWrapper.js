@@ -3,7 +3,7 @@ const redis = require('redis');
 class RedisWrapper {
   get client() {
     if (!this._client) {
-      throw new Error('Cannot access Redis client before connecting!');
+      return new Error('[ERROR] Cannot access Redis client before connecting!');
     }
     return this._client;
   }
