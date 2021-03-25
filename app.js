@@ -73,8 +73,8 @@ app.get('/pizzas/:id', (request, response) => {
         }
       });
       if (!pizza) {
-        response.status(400).send({
-          error: 'Bad Request',
+        response.status(404).send({
+          error: 'Not Found',
         });
       } else {
         console.log(
