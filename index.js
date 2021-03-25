@@ -4,7 +4,7 @@ const { redisWrapper } = require('./redisWrapper');
 //-----------------------------------------
 const start = () => {
   try {
-    //----> Verify the environment variablea are defined prior to load application
+    //----> Verify the environment variables are defined prior to load application
     if (!process.env.REDIS_HOST) {
       throw new Error(`REDIS_HOST must be defined`);
     }
@@ -16,15 +16,15 @@ const start = () => {
       process.env.REDIS_HOST,
       process.env.REDIS_PORT
     );
-    if (err) {
-      throw err;
-    }
     //---> Testing Redis
     redisWrapper.client.set('somekey', 'successful test');
     redisWrapper.client.get('somekey', (err, reply) => {
       // reply is null when the key is missing
       console.log(reply);
     });
+    if (err) {
+      throw err;
+    }
   } catch (err) {
     console.error(err);
   }
