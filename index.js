@@ -12,19 +12,25 @@ const start = () => {
       throw new Error(`REDIS_PORT must be defined`);
     }
     //--> Setup Redis Client Singleton
-    redisWrapper.connect(process.env.REDIS_HOST, process.env.REDIS_PORT);
-  } catch (err) {
-    console.error(err);
-  }
-
-  app.listen(app.get('port'), () => {
-    console.log(`[${app.locals.title}] Listening on port ${app.get('port')}!`);
+    const err = redisWrapper.connect(
+      process.env.REDIS_HOST,
+      process.env.REDIS_PORT
+    );
+    if (err) {
+      throw err;
+    }
     //---> Testing Redis
     redisWrapper.client.set('somekey', 'successful test');
     redisWrapper.client.get('somekey', (err, reply) => {
       // reply is null when the key is missing
       console.log(reply);
     });
+  } catch (err) {
+    console.error(err);
+  }
+
+  app.listen(app.get('port'), () => {
+    console.log(`[${app.locals.title}] Listening on port ${app.get('port')}!`);
   });
 };
 
